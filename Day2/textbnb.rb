@@ -36,7 +36,7 @@ class HomeCollection
         home2.price <=> home1.price
       end
     end
-
+    @actual_homes = @homes
   end
 
   def sortByCapacity(order = false)
@@ -50,7 +50,7 @@ class HomeCollection
         home2.capacity <=> home1.capacity
       end
     end
-
+    @actual_homes = @homes
   end
 
   def getCity(city)
