@@ -16,6 +16,7 @@ end
 class HomeCollection
   def initialize(homes)
     @homes = homes
+    @actual_homes = homes
   end
 
   def showHomes (homes)
@@ -53,16 +54,16 @@ class HomeCollection
   end
 
   def getCity(city)
-    @homes.select { |home| home.city == city }
+    @actual_homes = @homes.select { |home| home.city == city } 
   end
 
   def getAverage
-    total = @homes.reduce(0) { |sum, x| sum + x.price }
-    total / @homes.length.to_f
+    total = @actual_homes.reduce(0) { |sum, x| sum + x.price }
+    total / @actual_homes.length.to_f
   end
 
   def getByPrice(price)
-    @homes.find { |home| home.price == price.to_i }
+    @actual_homes = [ @homes.find { |home| home.price == price.to_i } ]
   end
 
 
@@ -111,12 +112,14 @@ class HomeCollection
           showHomes(@homes)
         when "4"
           puts "Escribe la ciudad a buscar"
-          showHomes getCity(gets.chomp)
+          getCity(gets.chomp)
+          showHomes @actual_homes
         when "5"
           puts "La media es " + getAverage.to_s
         when "6"
           puts "Introduce el precio a buscar"
-          showHomes [getByPrice(gets.chomp)]
+          getByPrice(gets.chomp)
+          showHomes @actual_homes
         else
           puts "Opción incorrecta"
       end
